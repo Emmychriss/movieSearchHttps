@@ -14,7 +14,9 @@ const App = () => {
     setError(null);
 
     try {
-      const response = await fetch("https://swapi.dev/api/films");
+      const response = await fetch(
+        "https://moviehttps-default-rtdb.firebaseio.com/movies.json"
+      );
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
@@ -24,9 +26,11 @@ const App = () => {
       const transformedMovies = data.results.map((moviedata) => {
         return {
           id: moviedata.episode_id,
+          producer: moviedata.producer,
           title: moviedata.title,
           releaseDate: moviedata.release_date,
           openingText: moviedata.opening_crawl,
+          characters: moviedata.characters,
         };
       });
       setMovies(transformedMovies);
