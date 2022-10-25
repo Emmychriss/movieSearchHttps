@@ -22,18 +22,20 @@ const App = () => {
       }
 
       const data = await response.json();
+      console.log(data);
 
-      const transformedMovies = data.results.map((moviedata) => {
-        return {
-          id: moviedata.episode_id,
-          producer: moviedata.producer,
-          title: moviedata.title,
-          releaseDate: moviedata.release_date,
-          openingText: moviedata.opening_crawl,
-          characters: moviedata.characters,
-        };
-      });
-      setMovies(transformedMovies);
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
@@ -56,8 +58,7 @@ const App = () => {
         },
       }
     );
-    const data = await response.json
-    console.log(data)
+    const data = await response.json;
   };
 
   let content = <p>No movies found.</p>;
